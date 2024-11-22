@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Atom Name Calculator</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="calc_content">
+    <!-- First Card: Atomic Properties -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Atomic Properties</ion-card-title>
+      </ion-card-header>
+      <ion-item>
+        <ion-label slot="start">Atomic Number</ion-label>
+        <ion-input
+          type="number"
+          min="1"
+          max="118"
+          [(ngModel)]="atomicNumber"
+          (ionChange)="validateAtomicNumber()">
+        </ion-input>
+        <ion-icon slot="end" name="flask-outline"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label slot="start">Atomic Mass</ion-label>
+        <ion-input
+          type="number"
+          min="1"
+          [(ngModel)]="atomicMass"
+          (ionChange)="calculateComposition()">
+        </ion-input>
+        <ion-icon slot="end" name="layers-outline"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label slot="start">Charge</ion-label>
+        <ion-input
+          type="number"
+          [(ngModel)]="charge"
+          (ionChange)="calculateComposition()">
+        </ion-input>
+        <ion-icon slot="end" name="flash-outline"></ion-icon>
+      </ion-item>
+    </ion-card>
+
+    <!-- Second Card: Atomic Composition -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Atomic Composition</ion-card-title>
+      </ion-card-header>
+      <ion-item>
+        <ion-label slot="start">Number of Protons</ion-label>
+        <ion-input
+          type="number"
+          [(ngModel)]="protons"
+          (ionChange)="calculateComposition()">
+        </ion-input>
+        <ion-icon slot="end" name="battery-charging-outline"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label slot="start">Number of Neutrons</ion-label>
+        <ion-input
+          type="number"
+          [(ngModel)]="neutrons"
+          (ionChange)="calculateComposition()">
+        </ion-input>
+        <ion-icon slot="end" name="flame-outline"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label slot="start">Number of Electrons</ion-label>
+        <ion-input
+          type="number"
+          [(ngModel)]="electrons"
+          (ionChange)="calculateComposition()">
+        </ion-input>
+        <ion-icon slot="end" name="airplane"></ion-icon>
+      </ion-item>
+    </ion-card>
+
+    <!-- Toggle Button to Show/Hide Element Details -->
+    <ion-item>
+      <ion-label>Show Element Details</ion-label>
+      <ion-toggle [(ngModel)]="showDetails"></ion-toggle>
+      <ion-button slot="end" color="danger" (click)="clearAll()">Clear All</ion-button>
+    </ion-item>
+
+    <!-- Third Card: Additional Details -->
+    <ion-card *ngIf="showDetails">
+      <ion-item>
+        <ion-label slot="start">Element Name</ion-label>
+        <ion-input readonly [(ngModel)]="elementName"></ion-input>
+        <ion-icon slot="end" name="medkit-outline"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label slot="start">AZE Notation</ion-label>
+        <ion-input readonly [(ngModel)]="azeNotation"></ion-input>
+        <ion-icon slot="end" name="clipboard-outline"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label slot="start">Total Mass</ion-label>
+        <ion-input readonly [(ngModel)]="totalMass"></ion-input>
+        <ion-icon slot="end" name="bar-chart-outline"></ion-icon>
+      </ion-item>
+    </ion-card>
+  </div>
+</ion-content>

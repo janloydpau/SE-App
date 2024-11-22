@@ -1,0 +1,12 @@
+.custom-label, ion-select {
+  font-size: 11px; /* Adjust this to match the pH label size */
+  font-weight: normal; /* Optional: adjust font weight if needed */
+}
+
+ion-label {
+  font-size: 16px; /* This will apply to all labels, you can override specific ones */
+}
+
+.clear{
+  padding: 16px;
+}

@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Percent Ion Calculator</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="calc_content">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Electronegativity</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+
+    <!-- First Atom Selection -->
+    <ion-card>
+        <ion-item>
+          <ion-select [(ngModel)]="firstAtom" label="First Atom" interface="popover" placeholder="Select" (ionChange)="calculateIonicCharacter()">
+            <ion-select-option *ngFor="let element of elements" [value]="element.symbol">{{ element.name+" ("+element.symbol+")" }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item *ngIf="firstAtom">
+          <ion-label slot="start">X¹</ion-label>
+          <ion-label slot="end">{{ getElectronegativity(firstAtom) }}</ion-label>
+        </ion-item>
+    </ion-card>
+
+    <!-- Second Atom Selection -->
+    <ion-card>
+      <ion-item>
+        <ion-select [(ngModel)]="secondAtom" label="Second Atom" interface="popover" placeholder="Select" (ionChange)="calculateIonicCharacter()">
+          <ion-select-option *ngFor="let element of elements" [value]="element.symbol">{{ element.name+" ("+element.symbol+")" }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="secondAtom">
+        <ion-label slot="start">X²</ion-label>
+        <ion-label slot="end">{{ getElectronegativity(secondAtom) }}</ion-label>
+      </ion-item>
+    </ion-card>
+
+    <!-- Electronegativity Difference -->
+    <ion-card>
+      <ion-item>
+        <ion-label slot="start">Electronegativity Difference</ion-label>
+        <ion-label slot="end">
+          {{ isNaNValue(electronegativityDifference) ? 'Error' : firstAtom === ''|| secondAtom === ''? "": electronegativityDifference }}
+        </ion-label>
+      </ion-item>
+    </ion-card>
+
+    <!-- Percent Ionic Character -->
+    <ion-card>
+      <ion-item>
+        <ion-label slot="start">Percent Ionic Character</ion-label>
+        <ion-label slot="end">
+          {{ isNaNValue(percentIonicCharacter) ? 'Error' : firstAtom === ''|| secondAtom === ''? "" : percentIonicCharacter + '%' }}
+        </ion-label>
+      </ion-item>
+     </ion-card>
+  </div>
+</ion-content>

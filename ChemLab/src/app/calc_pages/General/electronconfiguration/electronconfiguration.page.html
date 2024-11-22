@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Electron Configuration Calculator</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="calc_content">
+    <ion-card>
+      <ion-item>
+        <ion-select [(ngModel)]="selectedElement" label="Select an element" interface="popover" placeholder="Choose an element" (ionChange)="onElementChange()">
+          <ion-select-option *ngFor="let element of elements" [value]="element.symbol">
+            {{ element.name }} ({{ element.symbol }})
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-card>
+
+    <!-- Always visible card for element details -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ selectedElementData?.name }} ({{ selectedElementData?.symbol }})</ion-card-title>
+      </ion-card-header>
+
+      <!-- Atomic Number -->
+      <ion-item>
+        <ion-label slot="start">Atomic Number</ion-label>
+        <ion-label slot="end">{{ selectedElementData?.atomicNumber || '' }}</ion-label>
+      </ion-item>
+
+      <!-- Atomic Mass -->
+      <ion-item>
+        <ion-label slot="start">Atomic Mass</ion-label>
+        <ion-label slot="end">{{ selectedElementData?.atomicMass || '' }}</ion-label>
+      </ion-item>
+    </ion-card>
+
+    <!-- Card for Electron Configuration and Valence Electrons -->
+    <ion-card>
+      <!-- Electron Configuration -->
+      <ion-item>
+        <ion-label slot="start">Electron Configuration</ion-label>
+        <ion-label slot="end">{{ selectedElementData?.electronConfiguration || '' }}</ion-label>
+      </ion-item>
+
+      
+      <!-- Valence Electrons -->
+      <ion-item>
+        <ion-label slot="start">Valence Electrons</ion-label>
+        <ion-label slot="end">{{ selectedElementData?.valenceElectrons || '' }}</ion-label>
+      </ion-item>
+    </ion-card>
+    <ion-button expand="block" color="danger" (click)="clearInputs()">Clear</ion-button>
+  </div>
+</ion-content>

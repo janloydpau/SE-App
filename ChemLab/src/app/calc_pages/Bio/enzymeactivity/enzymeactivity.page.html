@@ -1,0 +1,124 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Enzyme Activity Calculator</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="calc_content">
+    <!-- Desired Enzyme Activity -->
+    <ion-card>
+      <ion-card-content>
+        <ion-item lines="none">
+          <ion-label>Desired Enzyme Activity Unit</ion-label>
+          <ion-select
+            class="select"
+            slot="end"
+            interface="popover"
+            [(ngModel)]="selectedUnit"
+            (ionChange)="updateDisplayedInput()">
+            <ion-select-option *ngFor="let unit of volumeUnits" [value]="unit.value">
+              {{ unit.label }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-input
+            type="number"
+            [value]="displayedInput"
+            (ionInput)="recalculateFromDesiredEnzymeActivity($event.target.value)">
+          </ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Stock Enzyme Activity -->
+    <ion-card>
+      <ion-card-content>
+        <ion-item lines="none">
+          <ion-label>Stock Enzyme Activity Unit</ion-label>
+          <ion-select
+            class="select"
+            slot="end"
+            interface="popover"
+            [(ngModel)]="selectedMassUnit"
+            (ionChange)="updateDisplayedMassInput()">
+            <ion-select-option *ngFor="let unit of massUnits" [value]="unit.value">
+              {{ unit.label }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-input
+            type="number"
+            [value]="displayedMassInput"
+            (ionInput)="recalculateFromStockEnzymeActivity($event.target.value)">
+          </ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Desired Final Volume -->
+    <ion-card>
+      <ion-card-content>
+        <ion-item lines="none">
+          <ion-label>Desired Final Volume Unit</ion-label>
+          <ion-select
+            class="select"
+            slot="end"
+            interface="popover"
+            [(ngModel)]="selectedFinalVolumeUnit"
+            (ionChange)="updateDisplayedFinalVolumeInput()">
+            <ion-select-option *ngFor="let unit of volumeUnits" [value]="unit.value">
+              {{ unit.label }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-input
+            type="number"
+            [value]="displayedFinalVolumeInput"
+            (ionInput)="recalculateFromDesiredFinalVolume($event.target.value)">
+          </ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Enzyme Mass -->
+    <ion-card>
+      <ion-card-content>
+        <ion-item lines="none">
+          <ion-label>Enzyme Mass Unit</ion-label>
+          <ion-select
+            class="select"
+            slot="end"
+            interface="popover"
+            [(ngModel)]="selectedEnzymeMassUnit"
+            (ionChange)="updateDisplayedEnzymeMassInput()">
+            <ion-select-option *ngFor="let unit of massUnits" [value]="unit.value">
+              {{ unit.label }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-input
+            type="number"
+            [value]="displayedEnzymeMassInput"
+            (ionChange)="recalculateFromEnzymeMass($event.target.value)"
+            readonly>
+          </ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+        <!-- Clear Button -->
+        <ion-button  expand="block" color="danger" (click)="clearAllInputs()">Clear</ion-button>
+  </div>
+</ion-content>

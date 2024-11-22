@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Isoelectric Point Calculator</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="calc_content">
+    <ion-card>
+      <ion-card-content>
+        <!-- pKa Input -->
+        <ion-item lines="none">
+          <ion-label>pKa</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input 
+            type="number" 
+            [(ngModel)]="pKa" 
+            (ionInput)="calculateIsoelectricPoint('pKa')" 
+            placeholder="Enter value">
+          </ion-input>
+        </ion-item>
+        <br>
+
+        <!-- pKb Input -->
+        <ion-item lines="none">
+          <ion-label>pKb</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input 
+            type="number" 
+            [(ngModel)]="pKb" 
+            (ionInput)="calculateIsoelectricPoint('pKb')" 
+            placeholder="Enter value">
+          </ion-input>
+        </ion-item>
+        <br>
+
+        <!-- Isoelectric Point -->
+        <ion-item lines="none">
+          <ion-label>Isoelectric point</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input 
+            type="number" 
+            [(ngModel)]="pI" 
+            (ionInput)="calculateIsoelectricPoint('pI')" 
+            placeholder="Enter value">
+          </ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button expand="block" color="danger" (click)="clearInputs()">Clear All</ion-button>
+  </div>
+</ion-content>

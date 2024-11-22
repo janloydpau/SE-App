@@ -1,0 +1,132 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Percent Composition Calculator</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="calc_content">
+    <ion-segment [(ngModel)]="selectedSegment" color="primary">
+      <ion-segment-button value="composition">
+        Composition
+      </ion-segment-button>
+      <ion-segment-button value="chart">
+        Chart
+      </ion-segment-button>
+    </ion-segment>
+    <ng-container *ngIf="selectedSegment === 'composition'">
+      <ion-card>
+        <ion-card-content>
+          <!-- First Element -->
+          <ion-item class="label" lines="none">
+            <ion-label>First Element</ion-label>
+            <ion-select slot="end" class="select" [(ngModel)]="selectedFirstElement" (ionChange)="onFirstElementChange()" interface="popover">
+              <ion-select-option *ngFor="let option of elementOptions" [value]="option.value">
+                {{ option.label }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="input">
+            <ion-input type="number" [(ngModel)]="firstElementInput" (ionInput)="onFirstElementInputChange()" placeholder="Enter amount"></ion-input>
+          </ion-item>
+    
+          <!-- Second Element -->
+          <ion-item class="label" lines="none">
+            <ion-label>Second Element</ion-label>
+            <ion-select slot="end" class="select" [(ngModel)]="selectedSecondElement" (ionChange)="onSecondElementChange()" interface="popover">
+              <ion-select-option *ngFor="let option of elementOptions" [value]="option.value">
+                {{ option.label }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="input">
+            <ion-input type="number" [(ngModel)]="secondElementInput" (ionInput)="onSecondElementInputChange()" placeholder="Enter amount"></ion-input>
+          </ion-item>
+    
+          <!-- Third Element -->
+          <ion-item class="label" lines="none">
+            <ion-label>Third Element</ion-label>
+            <ion-select slot="end" class="select" [(ngModel)]="selectedThirdElement" (ionChange)="onThirdElementChange()" interface="popover">
+              <ion-select-option *ngFor="let option of elementOptions" [value]="option.value">
+                {{ option.label }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="input">
+            <ion-input type="number" [(ngModel)]="thirdElementInput" (ionInput)="onThirdElementInputChange()" placeholder="Enter amount"></ion-input>
+          </ion-item>
+    
+          <!-- Fourth Element -->
+          <ion-item class="label" lines="none">
+            <ion-label>Fourth Element</ion-label>
+            <ion-select slot="end"  class="select" [(ngModel)]="selectedFourthElement" (ionChange)="onFourthElementChange()" interface="popover">
+              <ion-select-option *ngFor="let option of elementOptions" [value]="option.value">
+                {{ option.label }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="input">
+            <ion-input type="number" [(ngModel)]="fourthElementInput" (ionInput)="onFourthElementInputChange()" placeholder="Enter amount"></ion-input>
+          </ion-item>
+    
+          <!-- Fifth Element -->
+          <ion-item class="label" lines="none">
+            <ion-label>Fifth Element</ion-label>
+            <ion-select slot="end" class="select" [(ngModel)]="selectedFifthElement" (ionChange)="onFifthElementChange()" interface="popover">
+              <ion-select-option *ngFor="let option of elementOptions" [value]="option.value">
+                {{ option.label }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="input">
+            <ion-input type="number" [(ngModel)]="fifthElementInput" (ionInput)="onFifthElementInputChange()" placeholder="Enter amount"></ion-input>
+          </ion-item>
+    
+        </ion-card-content>
+      </ion-card>
+  
+      <ion-card>
+        <ion-card-content>
+              <!-- Molecular Weight (Readonly) -->
+          <ion-item class="label" lines="none">
+            <ion-label>Molecular Weight</ion-label>
+          </ion-item>
+          <ion-item class="input">
+            <ion-input readonly [(ngModel)]="molecularWeight" placeholder="Calculated molecular weight"></ion-input>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+
+    <!-- Chart Segment -->
+    <ng-container *ngIf="selectedSegment === 'chart'">
+      <ion-card>
+        <ion-card-content>
+          <ion-item class="label">
+            <ion-label>Element Mass Composition</ion-label>
+          </ion-item>
+          <br>
+
+          <!-- Table for Selected Elements and Their Percentages -->
+          <ion-row>
+            <ion-col>Element Symbol</ion-col>
+            <ion-col>Mass</ion-col>
+            <ion-col>Percentage</ion-col>
+          </ion-row>
+
+          <ion-row *ngFor="let element of elements">
+            <ion-col>{{ element.symbol }}</ion-col>
+            <ion-col>{{ element.mass }}</ion-col>
+            <ion-col>{{ element.percentage | number:'1.2-2' }}%</ion-col>
+          </ion-row>
+
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+    <ion-button class="clear" color="danger" expand="full" (click)="clearInputs()">Clear</ion-button>
+
+  </div>
+</ion-content>

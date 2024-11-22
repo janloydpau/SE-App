@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Protein-Solubility Calculator</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="calc_content">
+    <ion-card>
+      <ion-card-content>
+        <!-- Blank titer (B) Selection -->
+        <ion-item lines="none">
+          <ion-label>Blank titer (B)</ion-label>
+        </ion-item>
+
+        <!-- Blank titer (B) Input Field -->
+        <ion-item>
+          <ion-input type="number" [(ngModel)]="blankTiter" (ionInput)="onInputsChange()"></ion-input>
+        </ion-item>
+        <br>
+
+        <!-- Titer (T) Selection -->
+        <ion-item lines="none">
+          <ion-label>Titer (T)</ion-label>
+        </ion-item>
+
+        <!-- Titer (T) Input Field -->
+        <ion-item>
+          <ion-input type="number" [(ngModel)]="titer" (ionInput)="onInputsChange()"></ion-input>
+        </ion-item>
+        <br>
+
+        <!-- Normality Unit Selection -->
+        <ion-item lines="none">
+          <ion-label>Normality of NaOH</ion-label>
+          <ion-select class="select" slot="end" interface="popover" [(ngModel)]="selectedUnit" (ionChange)="onUnitChange($event)">
+            <ion-select-option *ngFor="let unit of units" [value]="unit.symbol">
+              {{ unit.name }} ({{ unit.symbol }})
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Input Field -->
+        <ion-item>
+          <ion-input
+            type="number"
+            [(ngModel)]="displayValue"
+            (ionInput)="onInputChange($event)">
+          </ion-input>
+        </ion-item>
+        <br>
+
+        <!-- Effective Weight Unit Selection -->
+        <ion-item lines="none">
+          <ion-label>Effective weight (M)</ion-label>
+          <ion-select class="select" slot="end" interface="popover" [(ngModel)]="selectedWeightUnit" (ionChange)="onWeightUnitChange($event)">
+            <ion-select-option *ngFor="let unit of weightUnits" [value]="unit.symbol">
+              {{ unit.name }} ({{ unit.symbol }})
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Effective Weight Input Field -->
+        <ion-item>
+          <ion-input
+            type="number"
+            [(ngModel)]="weightDisplayValue"
+            (ionInput)="onWeightInputChange($event)">
+          </ion-input>
+        </ion-item>
+        <br>
+
+        <!-- Protein solubility percentage (P) -->
+        <ion-item lines="none">
+          <ion-label>Protein Solubility Percentage (P) :</ion-label>
+        </ion-item> 
+
+        <!-- Eto display ng final sagot -->
+        <ion-item>
+          <ion-label slot="end">{{ proteinSolubilityPercentage | number: '1.2-2' }}%</ion-label>
+        </ion-item>
+        <br>
+      </ion-card-content>
+      <ion-button class="clear" expand="block" color="danger" (click)="clearFields()">Clear</ion-button>
+    </ion-card>
+  </div>
+</ion-content>

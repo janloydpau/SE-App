@@ -1,0 +1,7 @@
+{
+  "name": "ChemLab",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Chemical Name Calculator</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="calc_content">
+    <!-- Ion Segment -->
+    <ion-segment [(ngModel)]="selectedSegment" (ionChange)="onSegmentChanged($event)" color="primary" class="custom-segment">
+      <ion-segment-button value="name">
+        <ion-label>Name</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="formula">
+        <ion-label>Formula</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <!-- Name Content -->
+    <ng-container *ngIf="selectedSegment === 'name'">
+      <ion-card>
+        <!-- Cation Name Dropdown -->
+        <ion-item>
+          <ion-label slot="start">Cation Name</ion-label>
+          <ion-select slot="end" [(ngModel)]="selectedCationName" interface="popover" placeholder="Select" (ionChange)="generateCompound()">
+            <ion-select-option *ngFor="let cation of cationSymbols" [value]="cation.name">{{ cation.name }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <!-- Anion Name Dropdown -->
+        <ion-item>
+          <ion-label slot="start">Anion Name</ion-label>
+          <ion-select slot="end" [(ngModel)]="selectedAnionName" interface="popover" placeholder="Select" (ionChange)="generateCompound()">
+            <ion-select-option *ngFor="let anion of anionSymbols" [value]="anion.name">{{ anion.name }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-card>
+      <!-- Compound Info Card Inside Segment -->
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Compond details:</ion-card-title>
+        </ion-card-header>
+        <ion-item>
+          <ion-label slot="start">Name</ion-label>
+          <ion-label slot="end">{{ compoundName }}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label slot="start">Formula</ion-label>
+          <ion-label slot="end">{{ compoundFormula }}</ion-label>
+        </ion-item>
+      </ion-card>
+      <ion-button expand="block" color="danger" (click)="clearInputs()">Clear</ion-button>
+    </ng-container>
+
+    <!-- Formula Content -->
+    <ng-container *ngIf="selectedSegment === 'formula'">
+      <ion-card>
+        <!-- Cation Formula Dropdown -->
+        <ion-item>
+          <ion-label slot="start">Cation Formula</ion-label>
+          <ion-select slot="end" [(ngModel)]="selectedCationSymbol" interface="popover" placeholder="Select" (ionChange)="generateCompound()">
+            <ion-select-option *ngFor="let cation of cationSymbols" [value]="cation.symbol">{{ cation.symbol }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <!-- Anion Formula Dropdown -->
+        <ion-item>
+          <ion-label slot="start">Anion Formula</ion-label>
+          <ion-select slot="end" [(ngModel)]="selectedAnionSymbol" interface="popover" placeholder="Select" (ionChange)="generateCompound()">
+            <ion-select-option *ngFor="let anion of anionSymbols" [value]="anion.symbol">{{ anion.symbol }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-card>
+      <!-- Compound Info Card Inside Segment -->
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Compond details:</ion-card-title>
+        </ion-card-header>
+        <ion-item>
+          <ion-label slot="start">Name</ion-label>
+          <ion-label slot="end">{{ compoundName }}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label slot="start">Formula</ion-label>
+          <ion-label slot="end">{{ compoundFormula }}</ion-label>
+        </ion-item>
+      </ion-card>
+      <ion-button expand="block" color="danger" (click)="clearInputs()">Clear</ion-button>
+    </ng-container>
+  </div>
+</ion-content>

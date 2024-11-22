@@ -1,0 +1,112 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>pKₐ Calculator</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="calc_content">
+    <!-- Ion Segment -->
+    <ion-segment [(ngModel)]="selectedSegment" (ionChange)="onSegmentChanged($event)" color="primary" class="custom-segment">
+      <ion-segment-button value="fromph">
+        <ion-label>From pH</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="fromka">
+        <ion-label>From Ka</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <!-- From pH Content -->
+    <ng-container *ngIf="selectedSegment === 'fromph'">
+      <ion-card>
+        <ion-card-content>
+          <!-- pH Input -->
+          <ion-item lines="none">
+            <ion-label>pH</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-input type="number" [(ngModel)]="pH" (ionInput)="calculatePKA()" placeholder="Enter value"></ion-input>
+          </ion-item>
+          <br>
+
+          <!-- Conjugate Base Concentration with Dropdown -->
+          <ion-item lines="none" class="input-row">
+            <ion-label class="custom-label">Conjugate base concentration</ion-label>
+            <ion-select [(ngModel)]="selectedUnitConjugate" (ionChange)="updateDisplayValues()" slot="end" interface="popover">
+              <ion-select-option *ngFor="let unit of units" [value]="unit.symbol">
+                {{ unit.name }} ({{ unit.symbol }})
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- Input Field for Conjugate Base -->
+          <ion-item>
+            <ion-input [(ngModel)]="displayConjugateBaseValue" (ionInput)="onConjugateBaseChange($event)" type="number" placeholder="Enter value"></ion-input>
+          </ion-item>
+          <br>
+
+          <!-- Weak Acid Concentration with Dropdown -->
+          <ion-item lines="none" class="input-row">
+            <ion-label slot="start" class="custom-label">Weak acid concentration</ion-label>
+            <ion-select slot="end" [(ngModel)]="selectedUnitAcid" (ionChange)="updateDisplayValues()" slot="end" interface="popover">
+              <ion-select-option *ngFor="let unit of units" [value]="unit.symbol">
+                {{ unit.name }} ({{ unit.symbol }})
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- Input Field for Weak Acid -->
+          <ion-item>
+            <ion-input [(ngModel)]="displayWeakAcidValue" (ionInput)="onWeakAcidChange($event)" type="number" placeholder="Enter value"></ion-input>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- pKa Card -->
+      <ion-card>
+        <ion-card-content>
+          <ion-item lines="none">
+            <ion-label>pKₐ</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-input [(ngModel)]="pKa_frompH" type="number" readonly placeholder="Generated pKₐ value"></ion-input>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-button class="clear" expand="block" color="danger" (click)="clearFields()">Clear</ion-button>
+    </ng-container>
+
+        <!-- From Ka Content -->
+    <ng-container *ngIf="selectedSegment === 'fromka'">
+      <ion-card>
+        <ion-card-content>
+          <!-- Ka Input -->
+          <ion-item lines="none">
+            <ion-label>Ka</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-input type="number" [(ngModel)]="Ka" (ionInput)="calculatePKA()" placeholder="Enter Ka value"></ion-input>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- pKa Card -->
+      <ion-card>
+        <ion-card-content>
+          <ion-item lines="none">
+            <ion-label>pKₐ</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-input [(ngModel)]="pKa_fromKa" type="number" readonly placeholder="Generated pKₐ value"></ion-input>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-button class="clear" expand="block" color="danger" (click)="clearFields()">Clear</ion-button>
+    </ng-container>
+  </div>
+</ion-content>

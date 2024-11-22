@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Atomic Mass Calculator</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="calc_content">
+    <ion-card>
+      <ion-card-content>
+        <!-- Number of Protons (Z) -->
+        <ion-item class="label" lines="none">
+          <ion-label>Number of protons (Z)</ion-label>
+        </ion-item>
+        <ion-item class="input">
+          <ion-input  type="number" [(ngModel)]="protons" (ionInput)="onProtonOrNeutronChange()" placeholder="Enter value"></ion-input>
+        </ion-item>
+
+        <!-- Number of Neutrons (N) -->
+        <ion-item class="label" lines="none">
+          <ion-label>Number of neutrons (N)</ion-label>
+        </ion-item>
+        <ion-item class="input">
+          <ion-input type="number" [(ngModel)]="neutrons" (ionInput)="onProtonOrNeutronChange()" placeholder="Enter value"></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          Generated Output
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <!-- Atomic Mass with Unit Selection -->
+        <ion-item class="label" lines="none">
+          <ion-label>Atomic mass</ion-label>
+          <ion-select class="select" [(ngModel)]="selectedAtomicMass" (ionChange)="onAtomicMassUnitChange()" slot="end" interface="popover">
+            <ion-select-option *ngFor="let option of atomicMassOptions" [value]="option.value">
+              {{ option.label }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item class="input">
+          <ion-input type="number" [(ngModel)]="atomicMass" (ionInput)="onAtomicMassInputChange()" placeholder="" readonly></ion-input>
+        </ion-item>
+
+        <!-- Atomic Mass (SI) with Unit Selection -->
+        <ion-item class="label" lines="none">
+          <ion-label>Atomic mass (SI)</ion-label>
+          <ion-select [(ngModel)]="selectedAtomicMassSI" (ionChange)="onAtomicMassSIUnitChange()" slot="end" interface="popover">
+            <ion-select-option *ngFor="let option of atomicMassSIOptions" [value]="option.value">
+              {{ option.label }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item class="input">
+          <ion-input type="number" [(ngModel)]="atomicMassSI" (ionInput)="onAtomicMassSIInputChange()" placeholder="" readonly></ion-input>
+        </ion-item>
+
+        <!-- Mass Number -->
+        <ion-item class="label" lines="none">
+          <ion-label>Mass number</ion-label>
+        </ion-item>
+        <ion-item class="input">
+          <ion-input type="number" [(ngModel)]="massNumber" placeholder="" readonly></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Atomic Symbol and Stability Card -->
+    <ion-card *ngIf="showSymbolCard">
+      <ion-card-content>
+        <p><strong>Atomic Symbol:</strong> {{ atomicSymbol }}</p>
+        <p><strong>Stability:</strong> {{ isStable ? 'Stable' : 'Unstable' }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Clear Button -->
+    <ion-button class="clear" expand="block" color="danger" (click)="clearFields()">Clear</ion-button>
+  </div>
+</ion-content>

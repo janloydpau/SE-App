@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Electronegativity Calculator</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="calc_content">
+    <ion-card>
+      <ion-item lines="none">
+        <ion-label>First element: </ion-label>
+        <ion-select slot="end" [(ngModel)]="selectedFirstElement" interface="popover" placeholder="Select">
+          <ion-select-option *ngFor="let element of elements" [value]="element">
+            {{ element.name }} ({{ element.symbol }})
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>Second element: </ion-label>
+        <ion-select slot="end" [(ngModel)]="selectedSecondElement" interface="popover" placeholder="Select">
+          <ion-select-option *ngFor="let element of elements" [value]="element">
+            {{ element.name }} ({{ element.symbol }})
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Electronegativity</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item class="label" lines="none">
+          <ion-label>First atom</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" [value]="selectedFirstElement?.electronegativity" readonly></ion-input>
+        </ion-item>
+        <br>
+        <ion-item class="label" lines="none">
+          <ion-label>Second atom</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" [value]="selectedSecondElement?.electronegativity" readonly></ion-input>
+        </ion-item>
+        <br>
+        <ion-item class="label" lines="none">
+          <ion-label>Difference</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input type="number" [value]="calculateDifference()" readonly></ion-input>
+        </ion-item>
+        <br>
+        <ion-item class="label" lines="none">
+          <ion-label>Bond</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-input [value]="determineBond()" readonly></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+    <ion-button class="clear" expand="full" color="danger" (click)="clearAll()">Clear All</ion-button>
+  </div>
+</ion-content>

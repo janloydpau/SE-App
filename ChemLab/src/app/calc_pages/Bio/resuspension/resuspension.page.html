@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Resuspension Calculator</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="calc_content">
+    <ion-card>
+      <ion-card-content>
+        <!-- Oligo Unit Selection -->
+        <ion-item lines="none">
+          <ion-label>Amount of Oligo</ion-label>
+          <ion-select class="select" slot="end" interface="popover" [(ngModel)]="selectedOligoUnit" (ionChange)="unitChanged($event)">
+            <ion-select-option *ngFor="let unit of oligoUnits" [value]="unit.symbol">
+              {{ unit.name }} ({{ unit.symbol}})
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Oligo Input Field -->
+        <ion-item>
+          <ion-input type="number" [(ngModel)]="inputValue" (ionInput)="onOligoInputChange($event)"></ion-input>
+        </ion-item>
+        <br>
+
+        <!-- Concentration Unit Selection -->
+        <ion-item lines="none">
+          <ion-label>Concentration</ion-label>
+          <ion-select slot="end" interface="popover" [(ngModel)]="selectedConcentrationUnit" (ionChange)="unitChanged($event)">
+            <ion-select-option *ngFor="let unit of concentrationUnits" [value]="unit.symbol">
+              {{ unit.name }} ({{ unit.symbol}})
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Concentration Input Field -->
+        <ion-item>
+          <ion-input type="number" [(ngModel)]="concentrationValue" (ionInput)="onConcentrationInputChange($event)"></ion-input>
+        </ion-item>
+        <br>
+
+        <!-- Diluent Volume Unit Selection -->
+        <ion-item lines="none">
+          <ion-label>Diluent Volume Required</ion-label>
+          <ion-select  class="select" slot="end" interface="popover" [(ngModel)]="selectedDiluentUnit" (ionChange)="unitChanged($event)">
+            <ion-select-option *ngFor="let unit of diluentUnits" [value]="unit.symbol">
+              {{ unit.name }} ({{ unit.symbol}})
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Diluent Volume Input Field -->
+        <ion-item>
+          <ion-input type="number" [(ngModel)]="diluentValue" (ionInput)="onDiluentInputChange($event)"></ion-input>
+        </ion-item>
+        <br>
+
+      </ion-card-content>
+    </ion-card>
+    <ion-button class="clear" expand="block" color="danger" (click)="clearFields()">Clear</ion-button>
+  </div>
+</ion-content>
